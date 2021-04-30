@@ -88,14 +88,14 @@ with col1_1:
 col2_1, col2_2, col2_3 = st.beta_columns([5, 1, 3])
 
 
-#####First Query 
+
 query2 = f"""select *, substr(date_tweet_created, 1, 13) as 'Date_Time' from crypto_tweet_data 
 where coin_id = '{option}' and substr(date_tweet_created,1,10) = '{str(date_input)}'
 """
 df_tweet_line = pd.read_sql(query2, engine)
 df_tweet_filtered_line = df_tweet_line[df_tweet_line['coin_id'] == option]
 
-#new_df
+
 df_tweet_counts = df_tweet_filtered_line[['coin_id', 'Date_Time']].groupby(['Date_Time']).count()
 
 df_tweet_counts = df_tweet_counts.reset_index()
@@ -111,7 +111,7 @@ with col2_1:
 
 	st.altair_chart(tweet_counts_graph)
 
-#######Tweet count
+
 
 query4 = """
 select coin_id, substr(date_tweet_created, 1,10) as "date_tweet_created", count(1) as tweet_counts, sum(retweet_count+quote_rt_count) as retweet_counts, sum(reply_count) as reply_counts, sum(like_count) as like_counts
@@ -150,7 +150,7 @@ with col2_3:
 
 
 
-################
+
 sql_query = """
 select crypto_tweet_data.coin_id, substr(crypto_tweet_data.date_tweet_created, 1,10) as 'date_tweeted', 
 count(1) as num_of_tweets, round(avg(crypto_coin_prices.coin_price), 2) as coin_price_daily_avg from crypto_tweet_data
@@ -173,7 +173,7 @@ base = alt.Chart(source).encode(x='date_tweeted:O')
 bar = base.mark_bar().encode(y='num_of_tweets:Q')
 
 line =  base.mark_line(color='red').encode(
-    y= alt.Y('coin_price_daily_avg:Q', axis=alt.Axis(format="$.2f"), scale=alt.Scale(domain=[min_val,max_val])))#, scale=alt.Scale(domain=(1, 2))))
+    y= alt.Y('coin_price_daily_avg:Q', axis=alt.Axis(format="$.2f"), scale=alt.Scale(domain=[min_val,max_val])))
 
 yes = alt.layer(bar, line).resolve_scale(
     y = 'independent').properties(width=1200, height=500)
