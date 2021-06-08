@@ -26,3 +26,6 @@ DateTime
 Ratelimit to monitor API requests  
 Requests to pull JSON information  
 SQLite Database
+
+
+![image](https://user-images.githubusercontent.com/43186680/121190472-18d16800-c839-11eb-8042-cf83ccd05b31.png)
